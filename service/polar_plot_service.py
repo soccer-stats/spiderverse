@@ -78,7 +78,7 @@ def draw_polar(df, player_name, template):
     fig.text(-0.06, 0.75, l[3],
              horizontalalignment='center', verticalalignment='center', color='w',
              transform=ax.transAxes, size=text_size, **csfont, fontweight=fontweight)
-    fig.text(-0.06, 0.31, l[4],
+    fig.text(-0.06, 0.28, l[4],
              horizontalalignment='center', verticalalignment='center', color='w',
              transform=ax.transAxes, size=text_size, **csfont, fontweight=fontweight)
     fig.text(0.28, -0.01, l[5],
@@ -87,7 +87,7 @@ def draw_polar(df, player_name, template):
     fig.text(0.74, 0, l[6],
              horizontalalignment='center', verticalalignment='center', color='w',
              transform=ax.transAxes, size=text_size, **csfont, fontweight=fontweight)
-    fig.text(1.055, 0.31, l[7],
+    fig.text(1.055, 0.28, l[7],
              horizontalalignment='center', verticalalignment='center', color='w',
              transform=ax.transAxes, size=text_size, **csfont, fontweight=fontweight)
 

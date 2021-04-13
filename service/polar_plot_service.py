@@ -47,6 +47,7 @@ def draw_polar(df, player_name, template):
     ax.spines['polar'].set_color('#D7D7D7')
     ax.spines['polar'].set_linewidth(2)
     ax.set_rorigin(-30)
+    ax.set_rlim(0, 100)
     color = ['#2ec4b6', '#2ec4b6', '#ff9f1c', '#ff9f1c', '#ff9f1c', '#ff9f1c', '#e71d36', '#e71d36']
     ax.bar(theta, radii, width=width, color=color,
            alpha=0.6, edgecolor='#2e353c', linewidth=1.5)

@@ -1,10 +1,11 @@
 import matplotlib.pyplot as plt
 import pandas as pd
 import math
+from config import DATE_UPDATE
 
 
 def draw_polar(df, player_name, template):
-    csfont = {'fontname': 'Century Gothic'}
+    csfont = {'fontname': 'Helvetica'}
 
     p_features = ['Player', 'Succ', 'CPA', 'Prog', 'PPA', 'KP', 'Ast', 'Gls', 'Sh', '90s']
     p_absolute = df[p_features]
@@ -54,40 +55,40 @@ def draw_polar(df, player_name, template):
 
     l = list(p_percentiles)
 
-    ax.set_title(player_name + '\n\n', color='w', size=35, **csfont, fontweight="bold")
-    fig.text(0.5, 1.1, "Attacking phase Ranks vs Europe's Top 5 Leagues (per90), 2020/21",
-             horizontalalignment='center', verticalalignment='top', color='w', size='18',
-             transform=ax.transAxes, **csfont, fontweight="bold")
-    fig.text(1.1, -0.075, 'Players who have played > 300 min',
-             horizontalalignment='right', verticalalignment='top', color='#D7D7D7',
-             style='italic', transform=ax.transAxes, size='15', **csfont, fontweight="bold")
-    fig.text(0.292, -0.075, 'Data: Statsbomb via fbref.com',
-             horizontalalignment='right', verticalalignment='top', color='#D7D7D7',
-             style='italic', transform=ax.transAxes, size='15', **csfont, fontweight="bold")
-    fig.text(1.055, 0.71, l[0],
+    fig.text(0.5, 0.97, player_name, ha='center', va='top', color='w', size=44, **csfont, fontweight="bold")
+    fig.text(0.5, 0.9, "vs Europe's Top 5 Leagues {}, 2020/21".format(template.upper()),
+             ha='center', va='top', color='w', size='24', **csfont, fontweight="bold")
+    fig.text(0.5, 0.86, "created by 'Roaming Playmaker' and 'Футбол в цифрах'",
+             ha='center', va='top', color='w', size='16', **csfont, alpha=0.8)
+    fig.text(0.5, 0.02,
+             'stats per 90, played > 270 mins, data Statsbomb via fbref.com, last update {}'.format(DATE_UPDATE),
+             ha='center', color='#D7D7D7', style='italic', size='15', **csfont)
+
+    text_size = '18'
+    fig.text(1.065, 0.72, l[0],
              horizontalalignment='center', verticalalignment='top', color='w',
-             transform=ax.transAxes, size='15', **csfont, fontweight="bold")
-    fig.text(0.73, 1.01, l[1],
+             transform=ax.transAxes, size=text_size, **csfont, fontweight="bold")
+    fig.text(0.72, 1.025, l[1],
              horizontalalignment='center', verticalalignment='center', color='w',
-             transform=ax.transAxes, size='15', **csfont, fontweight="bold")
-    fig.text(0.29, 1.01, l[2],
+             transform=ax.transAxes, size=text_size, **csfont, fontweight="bold")
+    fig.text(0.29, 1.03, l[2],
              horizontalalignment='center', verticalalignment='center', color='w',
-             transform=ax.transAxes, size='15', **csfont, fontweight="bold")
-    fig.text(-0.04, 0.68, l[3],
+             transform=ax.transAxes, size=text_size, **csfont, fontweight="bold")
+    fig.text(-0.06, 0.75, l[3],
              horizontalalignment='center', verticalalignment='center', color='w',
-             transform=ax.transAxes, size='15', **csfont, fontweight="bold")
-    fig.text(-0.05, 0.32, l[4],
+             transform=ax.transAxes, size=text_size, **csfont, fontweight="bold")
+    fig.text(-0.06, 0.31, l[4],
              horizontalalignment='center', verticalalignment='center', color='w',
-             transform=ax.transAxes, size='15', **csfont, fontweight="bold")
-    fig.text(0.29, 0, l[5],
+             transform=ax.transAxes, size=text_size, **csfont, fontweight="bold")
+    fig.text(0.28, -0.01, l[5],
              horizontalalignment='center', verticalalignment='center', color='w',
-             transform=ax.transAxes, size='15', **csfont, fontweight="bold")
-    fig.text(.73, 0.01, l[6],
+             transform=ax.transAxes, size=text_size, **csfont, fontweight="bold")
+    fig.text(0.74, 0, l[6],
              horizontalalignment='center', verticalalignment='center', color='w',
-             transform=ax.transAxes, size='15', **csfont, fontweight="bold")
-    fig.text(1.03, 0.32, l[7],
+             transform=ax.transAxes, size=text_size, **csfont, fontweight="bold")
+    fig.text(1.04, 0.31, l[7],
              horizontalalignment='center', verticalalignment='center', color='w',
-             transform=ax.transAxes, size='15', **csfont, fontweight="bold")
+             transform=ax.transAxes, size=text_size, **csfont, fontweight="bold")
 
     for i in [0, 1, 2, 3, 4, 5, 6, 7]:
         plt.annotate(str(round(((list(p_percentiles1.loc[player_name]))[i]), 2)), (theta[i], radii[i]),
@@ -95,5 +96,5 @@ def draw_polar(df, player_name, template):
                      horizontalalignment='center', size='16', **csfont, fontweight="bold", bbox=dict(boxstyle="round",
                                                                                                      fc=color[i]))
 
-    fig.tight_layout()
+    fig.tight_layout(rect=[0, 0.07, 1, 0.78])
     return fig

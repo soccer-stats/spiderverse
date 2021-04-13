@@ -3,8 +3,11 @@ from config import DATA_PATH
 import os
 
 
-def load_data():
-    # TODO when we have more files we'd need to concatenate/merge them
-    # For MVP it is fine having just one file
-    path = os.path.join(DATA_PATH, "players_gca.csv")
-    return pd.read_csv(path)
+def load_data(pos=None, min_matches=3):
+    path = os.path.join(DATA_PATH, "data.csv")
+    df = pd.read_csv(path)
+    if pos is not None:
+        df = df[df['Pos'].str.contains(pos)].copy()
+    df = df[df['90s'] >= min_matches]
+    df['Player'] = df['Player'].str.split('\\', expand=True)[0]
+    return df

@@ -5,6 +5,7 @@ from config import DATE_UPDATE
 
 
 def draw_polar(df, player_name, template):
+    print(player_name)
     csfont = {'fontname': 'DejaVu Sans'}
 
     p_features = ['Player', 'Succ', 'CPA', 'Prog', 'PPA', 'KP', 'Ast', 'Gls', 'Sh', '90s']

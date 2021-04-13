@@ -5,7 +5,7 @@ from config import DATE_UPDATE
 
 
 def draw_polar(df, player_name, template):
-    csfont = {'fontname': 'Helvetica'}
+    csfont = {'fontname': 'DejaVu Sans'}
 
     p_features = ['Player', 'Succ', 'CPA', 'Prog', 'PPA', 'KP', 'Ast', 'Gls', 'Sh', '90s']
     p_absolute = df[p_features]
@@ -57,7 +57,7 @@ def draw_polar(df, player_name, template):
 
     fig.text(0.5, 0.97, player_name, ha='center', va='top', color='w', size=44, **csfont, fontweight="bold")
     fig.text(0.5, 0.9, "vs Europe's Top 5 Leagues {}, 2020/21".format(template.upper()),
-             ha='center', va='top', color='w', size='24', **csfont, fontweight="bold")
+             ha='center', va='top', color='w', size='24', **csfont)
     fig.text(0.5, 0.86, "created by 'Roaming Playmaker' and 'Футбол в цифрах'",
              ha='center', va='top', color='w', size='16', **csfont, alpha=0.8)
     fig.text(0.5, 0.02,
@@ -65,36 +65,37 @@ def draw_polar(df, player_name, template):
              ha='center', color='#D7D7D7', style='italic', size='15', **csfont)
 
     text_size = '18'
-    fig.text(1.065, 0.72, l[0],
+    fontweight = "normal"
+    fig.text(1.085, 0.77, l[0],
              horizontalalignment='center', verticalalignment='top', color='w',
-             transform=ax.transAxes, size=text_size, **csfont, fontweight="bold")
+             transform=ax.transAxes, size=text_size, **csfont, fontweight=fontweight)
     fig.text(0.72, 1.025, l[1],
              horizontalalignment='center', verticalalignment='center', color='w',
-             transform=ax.transAxes, size=text_size, **csfont, fontweight="bold")
+             transform=ax.transAxes, size=text_size, **csfont, fontweight=fontweight)
     fig.text(0.29, 1.03, l[2],
              horizontalalignment='center', verticalalignment='center', color='w',
-             transform=ax.transAxes, size=text_size, **csfont, fontweight="bold")
+             transform=ax.transAxes, size=text_size, **csfont, fontweight=fontweight)
     fig.text(-0.06, 0.75, l[3],
              horizontalalignment='center', verticalalignment='center', color='w',
-             transform=ax.transAxes, size=text_size, **csfont, fontweight="bold")
+             transform=ax.transAxes, size=text_size, **csfont, fontweight=fontweight)
     fig.text(-0.06, 0.31, l[4],
              horizontalalignment='center', verticalalignment='center', color='w',
-             transform=ax.transAxes, size=text_size, **csfont, fontweight="bold")
+             transform=ax.transAxes, size=text_size, **csfont, fontweight=fontweight)
     fig.text(0.28, -0.01, l[5],
              horizontalalignment='center', verticalalignment='center', color='w',
-             transform=ax.transAxes, size=text_size, **csfont, fontweight="bold")
+             transform=ax.transAxes, size=text_size, **csfont, fontweight=fontweight)
     fig.text(0.74, 0, l[6],
              horizontalalignment='center', verticalalignment='center', color='w',
-             transform=ax.transAxes, size=text_size, **csfont, fontweight="bold")
-    fig.text(1.04, 0.31, l[7],
+             transform=ax.transAxes, size=text_size, **csfont, fontweight=fontweight)
+    fig.text(1.055, 0.31, l[7],
              horizontalalignment='center', verticalalignment='center', color='w',
-             transform=ax.transAxes, size=text_size, **csfont, fontweight="bold")
+             transform=ax.transAxes, size=text_size, **csfont, fontweight=fontweight)
 
     for i in [0, 1, 2, 3, 4, 5, 6, 7]:
         plt.annotate(str(round(((list(p_percentiles1.loc[player_name]))[i]), 2)), (theta[i], radii[i]),
                      color='#000814',
-                     horizontalalignment='center', size='16', **csfont, fontweight="bold", bbox=dict(boxstyle="round",
-                                                                                                     fc=color[i]))
+                     horizontalalignment='center', size='16', **csfont, fontweight=fontweight, bbox=dict(boxstyle="round",
+                                                                                                   fc=color[i]))
 
     fig.tight_layout(rect=[0, 0.07, 1, 0.78])
     return fig

@@ -52,7 +52,7 @@ def draw_polar(df, player_name, template):
     tick_loc = list(map((lambda x: x * math.pi / len(metrics)), list(range(0, 2 * len(metrics), 2))))
     ax.xaxis.set_major_locator(FixedLocator(tick_loc))
 
-    ax.tick_params(axis='x', which="minor", labelsize=16, colors='xkcd:off white', pad=resolve_pad(radii))
+    ax.tick_params(axis='x', which="minor", labelsize=16, colors='xkcd:off white', pad=40)
     ax.xaxis.set_minor_locator(FixedLocator(theta))
     labels = template_service.get_labels(template)
     ax.xaxis.set_minor_formatter(FixedFormatter(labels))
@@ -73,10 +73,3 @@ def draw_polar(df, player_name, template):
 
     fig.tight_layout(rect=[0, 0.07, 1, 0.83])
     return fig
-
-
-def resolve_pad(radius_values):
-    if max(radius_values) >= 95:
-        return 40
-    else:
-        return 20

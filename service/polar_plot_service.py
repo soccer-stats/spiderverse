@@ -17,13 +17,19 @@ def draw_polar(df, player_name, template):
     values_df = pd.DataFrame()
     values_df['Player'] = p_absolute['Player']
     for metric in metrics:
-        values_df[metric['label']] = (p_absolute[metric['colname']] / p_absolute['90s'])
+        if "skip_p90" in metric and metric['skip_p90']:
+            values_df[metric['label']] = p_absolute[metric['colname']]
+        else:
+            values_df[metric['label']] = (p_absolute[metric['colname']] / p_absolute['90s'])
     values_df = values_df.set_index("Player")
 
     percentiles_df = pd.DataFrame()
     percentiles_df['Player'] = p_absolute['Player']
     for metric in metrics:
-        percentiles_df[metric['label']] = (p_absolute[metric['colname']] / p_absolute['90s']).rank(pct=True) * 100
+        if "skip_p90" in metric and metric['skip_p90']:
+            percentiles_df[metric['label']] = (p_absolute[metric['colname']]).rank(pct=True) * 100
+        else:
+            percentiles_df[metric['label']] = (p_absolute[metric['colname']] / p_absolute['90s']).rank(pct=True) * 100
     percentiles_df = percentiles_df.set_index('Player')
 
     theta = list(map((lambda x: x * math.pi / len(metrics)), list(range(1, 2 * len(metrics) + 1, 2))))
@@ -46,7 +52,7 @@ def draw_polar(df, player_name, template):
     tick_loc = list(map((lambda x: x * math.pi / len(metrics)), list(range(0, 2 * len(metrics), 2))))
     ax.xaxis.set_major_locator(FixedLocator(tick_loc))
 
-    ax.tick_params(axis='x', which="minor", labelsize=18, colors='xkcd:off white', pad=resolve_pad(radii))
+    ax.tick_params(axis='x', which="minor", labelsize=16, colors='xkcd:off white', pad=resolve_pad(radii))
     ax.xaxis.set_minor_locator(FixedLocator(theta))
     labels = template_service.get_labels(template)
     ax.xaxis.set_minor_formatter(FixedFormatter(labels))

@@ -1,11 +1,11 @@
 templates = {
     "Forwards": {
         "metrics": [
-            {"label": "Dribbles\nNumber", "colname": "Succ", "color": "#2ec4b6"},
+            {"label": "Dribbles\nSucc", "colname": "Succ", "color": "#2ec4b6"},
             {"label": "Penbox\nCarries", "colname": "CPA", "color": "#2ec4b6"},
             {"label": "Progressive\nPass", "colname": "Prog", "color": "#ff9f1c"},
             {"label": "Penbox\nPass", "colname": "PPA", "color": "#ff9f1c"},
-            {"label": "Key Pass", "colname": "KP", "color": "#ff9f1c"},
+            {"label": "Key\nPass", "colname": "KP", "color": "#ff9f1c"},
             {"label": "Assist", "colname": "Ast", "color": "#ff9f1c"},
             {"label": "Goal", "colname": "Gls", "color": "#e71d36"},
             {"label": "Shot", "colname": "Sh", "color": "#e71d36"},
@@ -13,11 +13,11 @@ templates = {
     },
     "Midfielders": {
         "metrics": [
-            {"label": "Dribbles\nNumber", "colname": "Succ", "color": "#2ec4b6"},
+            {"label": "Dribbles\nSucc", "colname": "Succ", "color": "#2ec4b6"},
             {"label": "Penbox\nCarries", "colname": "CPA", "color": "#2ec4b6"},
             {"label": "Progressive\nPass", "colname": "Prog", "color": "#ff9f1c"},
             {"label": "Penbox\nPass", "colname": "PPA", "color": "#ff9f1c"},
-            {"label": "Key Pass", "colname": "KP", "color": "#ff9f1c"},
+            {"label": "Key\nPass", "colname": "KP", "color": "#ff9f1c"},
             {"label": "Assist", "colname": "Ast", "color": "#ff9f1c"},
             {"label": "Goal", "colname": "Gls", "color": "#e71d36"},
             {"label": "Shot", "colname": "Sh", "color": "#e71d36"},
@@ -25,11 +25,11 @@ templates = {
     },
     "Defenders": {
         "metrics": [
-            {"label": "Dribbles\nNumber", "colname": "Succ", "color": "#2ec4b6"},
+            {"label": "Dribbles\nSucc", "colname": "Succ", "color": "#2ec4b6"},
             {"label": "Penbox\nCarries", "colname": "CPA", "color": "#2ec4b6"},
             {"label": "Progressive\nPass", "colname": "Prog", "color": "#ff9f1c"},
             {"label": "Penbox\nPass", "colname": "PPA", "color": "#ff9f1c"},
-            {"label": "Key Pass", "colname": "KP", "color": "#ff9f1c"},
+            {"label": "Key\nPass", "colname": "KP", "color": "#ff9f1c"},
             {"label": "Assist", "colname": "Ast", "color": "#ff9f1c"},
             {"label": "Goal", "colname": "Gls", "color": "#e71d36"},
             {"label": "Shot", "colname": "Sh", "color": "#e71d36"},

@@ -3,6 +3,8 @@ import pandas as pd
 import math
 from config import DATE_UPDATE
 from template import template_service
+from matplotlib.ticker import FixedFormatter
+from matplotlib.ticker import FixedLocator
 
 
 def draw_polar(df, player_name, template):
@@ -24,9 +26,9 @@ def draw_polar(df, player_name, template):
         percentiles_df[metric['label']] = (p_absolute[metric['colname']] / p_absolute['90s']).rank(pct=True) * 100
     percentiles_df = percentiles_df.set_index('Player')
 
-    theta = list(map((lambda x: x * math.pi / len(metrics)), list(range(1, 17, 2))))
+    theta = list(map((lambda x: x * math.pi / len(metrics)), list(range(1, 2 * len(metrics) + 1, 2))))
     radii = list(percentiles_df.loc[player_name])
-    width = [math.pi / 4] * len(radii)
+    width = [math.pi / (len(metrics) / 2)] * len(radii)
     fig = plt.figure(figsize=(10, 10), facecolor='#000814')
     ax = fig.add_subplot(111, projection='polar')
     ax.set_facecolor('#000814')
@@ -40,10 +42,14 @@ def draw_polar(df, player_name, template):
     ax.set_rorigin(-30)
     ax.set_rlim(0, 100)
     colors = template_service.get_colors(template)
-    ax.bar(theta, radii, width=width, color=colors,
-           alpha=0.6, edgecolor='#2e353c', linewidth=1.5)
+    ax.bar(theta, radii, width=width, color=colors, alpha=0.6, edgecolor='#2e353c', linewidth=1.5)
+    tick_loc = list(map((lambda x: x * math.pi / len(metrics)), list(range(0, 2 * len(metrics), 2))))
+    ax.xaxis.set_major_locator(FixedLocator(tick_loc))
 
-    l = list(percentiles_df)
+    ax.tick_params(axis='x', which="minor", labelsize=18, colors='xkcd:off white', pad=resolve_pad(radii))
+    ax.xaxis.set_minor_locator(FixedLocator(theta))
+    labels = template_service.get_labels(template)
+    ax.xaxis.set_minor_formatter(FixedFormatter(labels))
 
     fig.text(0.5, 0.97, player_name, ha='center', va='top', color='w', size=44, **csfont, fontweight="bold")
     fig.text(0.5, 0.9, "vs Europe's Top 5 Leagues {}, 2020/21".format(template.upper()),
@@ -54,37 +60,17 @@ def draw_polar(df, player_name, template):
              'stats per 90, played > 270 mins, data Statsbomb via fbref.com, last update {}'.format(DATE_UPDATE),
              ha='center', color='#D7D7D7', style='italic', size='15', **csfont)
 
-    text_size = '18'
-    fontweight = "normal"
-    fig.text(1.085, 0.77, l[0],
-             horizontalalignment='center', verticalalignment='top', color='w',
-             transform=ax.transAxes, size=text_size, **csfont, fontweight=fontweight)
-    fig.text(0.72, 1.025, l[1],
-             horizontalalignment='center', verticalalignment='center', color='w',
-             transform=ax.transAxes, size=text_size, **csfont, fontweight=fontweight)
-    fig.text(0.29, 1.03, l[2],
-             horizontalalignment='center', verticalalignment='center', color='w',
-             transform=ax.transAxes, size=text_size, **csfont, fontweight=fontweight)
-    fig.text(-0.06, 0.75, l[3],
-             horizontalalignment='center', verticalalignment='center', color='w',
-             transform=ax.transAxes, size=text_size, **csfont, fontweight=fontweight)
-    fig.text(-0.06, 0.28, l[4],
-             horizontalalignment='center', verticalalignment='center', color='w',
-             transform=ax.transAxes, size=text_size, **csfont, fontweight=fontweight)
-    fig.text(0.28, -0.01, l[5],
-             horizontalalignment='center', verticalalignment='center', color='w',
-             transform=ax.transAxes, size=text_size, **csfont, fontweight=fontweight)
-    fig.text(0.74, 0, l[6],
-             horizontalalignment='center', verticalalignment='center', color='w',
-             transform=ax.transAxes, size=text_size, **csfont, fontweight=fontweight)
-    fig.text(1.055, 0.28, l[7],
-             horizontalalignment='center', verticalalignment='center', color='w',
-             transform=ax.transAxes, size=text_size, **csfont, fontweight=fontweight)
-
     for i in range(0, len(metrics)):
         plt.annotate(str(round(((list(values_df.loc[player_name]))[i]), 2)), (theta[i], radii[i]),
                      color='#000814', ha='center', size='16', **csfont,
-                     fontweight=fontweight, bbox=dict(boxstyle="round", fc=colors[i]))
+                     fontweight="normal", bbox=dict(boxstyle="round", fc=colors[i]))
 
-    fig.tight_layout(rect=[0, 0.07, 1, 0.78])
+    fig.tight_layout(rect=[0, 0.07, 1, 0.83])
     return fig
+
+
+def resolve_pad(radius_values):
+    if max(radius_values) >= 95:
+        return 40
+    else:
+        return 20

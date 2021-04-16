@@ -1,6 +1,7 @@
 strings = {
     "app_title": "Polar Bear",
-    "app_credentials": "Created by [Roaming Playmaker](https://t.me/Ivan_xG) и [Футбол в цифрах](https://t.me/markstats)"
+    "app_credentials": "Created by [Roaming Playmaker](https://t.me/Ivan_xG) and [Футбол в цифрах](https://t.me/markstats)",
+    "donate": "you can [buy us a coffee](https://www.buymeacoffee.com/polarbearapp) to support"
 }
 
 

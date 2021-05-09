@@ -143,11 +143,11 @@ def draw_polar2(df, player_name, player_name2, template):
     for i in range(0, len(metrics)):
         text =(str(round(((list(values_df.loc[player_name]))[i]), 2)))
         a = ax.text(theta[i],radii[i],text,color='w', ha='center', size='16', **csfont,
-                    fontweight="bold", bbox=dict(boxstyle="round", fc=colors[i],mutation_aspect=0.2))
+                    fontweight="bold", bbox=dict(boxstyle="round", fc=colors[i],mutation_aspect=0.3))
         text2 = (str(round(((list(values_df.loc[player_name2]))[i]),2)))
         b = ax.text(theta[i],radii2[i],text2,color='w', ha='center', size='16', **csfont,
                     fontweight="bold", bbox=dict(boxstyle="round", fc=colors[i],hatch='xxx',
-                                                 color='#000814',mutation_aspect=0.2))
+                                                 color='#000814',mutation_aspect=0.3))
         a.set_path_effects([path_effects.withStroke(linewidth=1,foreground="black")])
         b.set_path_effects([path_effects.withStroke(linewidth=1,foreground="black")])
         texts.append(a)

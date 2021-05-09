@@ -6,7 +6,7 @@ from template import template_service
 from matplotlib.ticker import FixedFormatter
 from matplotlib.ticker import FixedLocator
 import matplotlib.patheffects as path_effects
-from adjustText import adjust_text
+
 
 def draw_polar(df, player_name, template):
     csfont = {'fontname': 'DejaVu Sans'}
@@ -75,6 +75,7 @@ def draw_polar(df, player_name, template):
     fig.tight_layout(rect=[0, 0.07, 1, 0.83])
     return fig
 
+
 def draw_polar2(df, player_name, player_name2, template):
     csfont = {'fontname': 'DejaVu Sans'}
 
@@ -118,8 +119,8 @@ def draw_polar2(df, player_name, player_name2, template):
     ax.set_rorigin(-30)
     ax.set_rlim(0, 100)
     colors = template_service.get_colors(template)
-    ax.bar(theta, radii, width=width, color=colors, alpha=0.8, linewidth=4)
-    ax.bar(theta,radii2,width=width2,color='#000814',alpha=0.4,edgecolor=colors,linewidth=4,hatch='xxx')
+    ax.bar(theta, radii, width=width, color=colors, alpha=0.8, linewidth=1)
+    ax.bar(theta, radii2, width=width2, color='#000814', alpha=0.4, edgecolor=colors, linewidth=1, hatch='xxx')
     tick_loc = list(map((lambda x: x * math.pi / len(metrics)), list(range(0, 2 * len(metrics), 2))))
     ax.xaxis.set_major_locator(FixedLocator(tick_loc))
 
@@ -128,10 +129,10 @@ def draw_polar2(df, player_name, player_name2, template):
     labels = template_service.get_labels(template)
     ax.xaxis.set_minor_formatter(FixedFormatter(labels))
 
-    fig.text(0.45, 0.97, player_name, ha='left', va='top', color='w', size=44, **csfont, fontweight="bold")
-    fig.text(0.5, 0.97, s='vs', ha='center', va='top', fontweight='bold', **csfont, color='w', size=44)
-    s=fig.text(0.55,0.97,player_name2,ha='right',va='top',color='w',size=44,**csfont,fontweight="bold")
-    s.set_path_effects([path_effects.PathPatchEffect(hatch='xx',edgecolor='#000814',facecolor='w')])
+    fontsize = 34
+    fig.text(0.05, 0.96, player_name, ha='left', va='top', color='w', size=fontsize, **csfont, fontweight="bold")
+    s = fig.text(0.95, 0.96, player_name2, ha='right', va='top', color='w', size=fontsize, **csfont, fontweight="bold")
+    s.set_path_effects([path_effects.PathPatchEffect(hatch='xx', edgecolor='#000814', facecolor='w')])
     fig.text(0.5, 0.9, "vs Europe's Top 5 Leagues {}, 2020/21".format(template.upper()),
              ha='center', va='top', color='w', size='24', **csfont)
     fig.text(0.5, 0.86, "created by 'Roaming Playmaker' and 'Футбол в цифрах'",
@@ -139,20 +140,30 @@ def draw_polar2(df, player_name, player_name2, template):
     fig.text(0.5, 0.02,
              'stats per 90, played > 270 mins, data Statsbomb via fbref.com, last update {}'.format(DATE_UPDATE),
              ha='center', color='#D7D7D7', style='italic', size='15', **csfont)
-    texts = []
     for i in range(0, len(metrics)):
         text = (str(round(((list(values_df.loc[player_name]))[i]), 2)))
-        a = ax.text(theta[i], radii[i], text, color='w', ha='center', size='16', **csfont,
-                    fontweight="bold", bbox=dict(boxstyle="round", fc=colors[i],mutation_aspect=0.3))
-        text2 = (str(round(((list(values_df.loc[player_name2]))[i]),2)))
-        b = ax.text(theta[i], radii2[i], text2, color='w', ha='center', size='16', **csfont,
-                    fontweight="bold", bbox=dict(boxstyle="round", fc=colors[i],hatch='xxx',
-                                                 color='#000814',mutation_aspect=0.3))
+        text2 = (str(round(((list(values_df.loc[player_name2]))[i]), 2)))
+        if radii[i] > radii2[i]:
+            if i < len(metrics) / 2:
+                va1 = 'bottom'
+                va2 = 'top'
+            else:
+                va1 = 'top'
+                va2 = 'bottom'
+        else:
+            if i < len(metrics) / 2:
+                va2 = 'bottom'
+                va1 = 'top'
+            else:
+                va2 = 'top'
+                va1 = 'bottom'
+        a = ax.text(theta[i], radii[i], text, color='w', ha="right", va=va1, size='16', **csfont,
+                    fontweight="bold", bbox=dict(boxstyle="round", fc=colors[i], mutation_aspect=0.3))
+        b = ax.text(theta[i], radii2[i], text2, color='w', ha="left", va=va2, size='16', **csfont,
+                    fontweight="bold", bbox=dict(boxstyle="round", fc=colors[i], hatch='xxx',
+                                                 color='#000814', mutation_aspect=0.3))
         a.set_path_effects([path_effects.withStroke(linewidth=1, foreground="black")])
         b.set_path_effects([path_effects.withStroke(linewidth=1, foreground="black")])
-        texts.append(a)
-        texts.append(b)
-    adjust_text(texts)
 
     fig.tight_layout(rect=[0, 0.07, 1, 0.83])
     return fig

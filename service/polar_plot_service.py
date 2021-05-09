@@ -6,6 +6,7 @@ from template import template_service
 from matplotlib.ticker import FixedFormatter
 from matplotlib.ticker import FixedLocator
 import matplotlib.patheffects as path_effects
+from adjustText import adjust_text
 
 def draw_polar(df, player_name, template):
     csfont = {'fontname': 'DejaVu Sans'}
@@ -138,7 +139,7 @@ def draw_polar2(df, player_name, player_name2, template):
     fig.text(0.5, 0.02,
              'stats per 90, played > 270 mins, data Statsbomb via fbref.com, last update {}'.format(DATE_UPDATE),
              ha='center', color='#D7D7D7', style='italic', size='15', **csfont)
-
+    texts = []
     for i in range(0, len(metrics)):
         text = (str(round(((list(values_df.loc[player_name]))[i]), 2)))
         a = ax.text(theta[i], radii[i], text, color='w', ha='center', size='16', **csfont,
@@ -149,6 +150,9 @@ def draw_polar2(df, player_name, player_name2, template):
                                                  color='#000814',mutation_aspect=0.3))
         a.set_path_effects([path_effects.withStroke(linewidth=1, foreground="black")])
         b.set_path_effects([path_effects.withStroke(linewidth=1, foreground="black")])
+        texts.append(a)
+        texts.append(b)
+    adjust_text(texts)
 
     fig.tight_layout(rect=[0, 0.07, 1, 0.83])
     return fig

@@ -130,12 +130,15 @@ def draw_polar2(df, player_name, player_name2, template):
     ax.xaxis.set_minor_formatter(FixedFormatter(labels))
 
     fontsize = 34
-    fig.text(0.05, 0.96, player_name, ha='left', va='top', color='w', size=fontsize, **csfont, fontweight="bold")
-    s = fig.text(0.95, 0.96, player_name2, ha='right', va='top', color='w', size=fontsize, **csfont, fontweight="bold")
-    s.set_path_effects([path_effects.PathPatchEffect(hatch='xx', edgecolor='#000814', facecolor='w')])
-    fig.text(0.5, 0.9, "vs Europe's Top 5 Leagues {}, 2020/21".format(template.upper()),
+    fig.text(0.25, 0.96, player_name.split(' ')[0][0]+'. '+player_name.split(' ')[-1], ha='center', va='top', color='w', size=fontsize, **csfont, fontweight="bold",
+             bbox=dict(boxstyle="round",alpha=0.8,fc='#000814',mutation_aspect=0.5,edgecolor='#ff9f1c',linewidth=2))
+    s = fig.text(0.75, 0.96, player_name2.split(' ')[0][0]+'. '+player_name2.split(' ')[-1],ha='center', va='top', color='w', size=fontsize, **csfont, fontweight="bold",
+                 bbox=dict(boxstyle="round",alpha=0.8,fc='#000814',hatch='xxx',edgecolor='#ff9f1c',linewidth=2,
+                           mutation_aspect=0.5))
+#    s.set_path_effects([path_effects.PathPatchEffect(hatch='xx', edgecolor='#000814', facecolor='w')])
+    fig.text(0.5, 0.89, "vs Europe's Top 5 Leagues {}, 2020/21".format(template.upper()),
              ha='center', va='top', color='w', size='24', **csfont)
-    fig.text(0.5, 0.86, "created by 'Roaming Playmaker' and 'Футбол в цифрах'",
+    fig.text(0.5, 0.84, "created by 'Roaming Playmaker' and 'Футбол в цифрах'",
              ha='center', va='top', color='w', size='16', **csfont, alpha=0.8)
     fig.text(0.5, 0.02,
              'stats per 90, played > 270 mins, data Statsbomb via fbref.com, last update {}'.format(DATE_UPDATE),
@@ -158,12 +161,13 @@ def draw_polar2(df, player_name, player_name2, template):
                 va2 = 'top'
                 va1 = 'bottom'
         a = ax.text(theta[i], radii[i], text, color='w', ha="right", va=va1, size='16', **csfont,
-                    fontweight="bold", bbox=dict(boxstyle="round", fc=colors[i], mutation_aspect=0.3))
+                    fontweight="bold", bbox=dict(boxstyle="round", fc='#000814', mutation_aspect=0.5,alpha=0.8,
+                                                 edgecolor=colors[i],linewidth=2))
         b = ax.text(theta[i], radii2[i], text2, color='w', ha="left", va=va2, size='16', **csfont,
-                    fontweight="bold", bbox=dict(boxstyle="round", fc=colors[i], hatch='xxx',
-                                                 color='#000814', mutation_aspect=0.3))
+                    fontweight="bold", bbox=dict(boxstyle="round", fc='#000814', hatch='xxxx',alpha=0.8,
+                                                 mutation_aspect=0.5,edgecolor=colors[i],linewidth=2))
         a.set_path_effects([path_effects.withStroke(linewidth=1, foreground="black")])
         b.set_path_effects([path_effects.withStroke(linewidth=1, foreground="black")])
 
-    fig.tight_layout(rect=[0, 0.07, 1, 0.83])
+    fig.tight_layout(rect=[0, 0.06, 1, 0.802])
     return fig

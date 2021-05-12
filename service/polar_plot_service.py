@@ -124,7 +124,7 @@ def draw_polar2(df, player_name, player_name2, template):
     tick_loc = list(map((lambda x: x * math.pi / len(metrics)), list(range(0, 2 * len(metrics), 2))))
     ax.xaxis.set_major_locator(FixedLocator(tick_loc))
 
-    ax.tick_params(axis='x', which="minor", labelsize=16, colors='xkcd:off white', pad=40)
+    ax.tick_params(axis='x', which="minor", labelsize=16, colors='xkcd:off white', pad=41)
     ax.xaxis.set_minor_locator(FixedLocator(theta))
     labels = template_service.get_labels(template)
     ax.xaxis.set_minor_formatter(FixedFormatter(labels))

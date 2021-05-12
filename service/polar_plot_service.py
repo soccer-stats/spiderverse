@@ -138,7 +138,7 @@ def draw_polar2(df, player_name, player_name2, template):
 #    s.set_path_effects([path_effects.PathPatchEffect(hatch='xx', edgecolor='#000814', facecolor='w')])
     fig.text(0.5, 0.89, "vs Europe's Top 5 Leagues {}, 2020/21".format(template.upper()),
              ha='center', va='top', color='w', size='24', **csfont)
-    fig.text(0.5, 0.84, "created by 'Roaming Playmaker' and 'Футбол в цифрах'",
+    fig.text(0.5, 0.85, "created by 'Roaming Playmaker' and 'Футбол в цифрах'",
              ha='center', va='top', color='w', size='16', **csfont, alpha=0.8)
     fig.text(0.5, 0.02,
              'stats per 90, played > 270 mins, data Statsbomb via fbref.com, last update {}'.format(DATE_UPDATE),

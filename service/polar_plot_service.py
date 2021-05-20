@@ -39,7 +39,7 @@ def draw_polar(df, player_name, template):
     fig = plt.figure(figsize=(10, 10), facecolor='#000814')
     ax = fig.add_subplot(111, projection='polar')
     ax.set_facecolor('#000814')
-    ax.grid(axis='y', color='#000814', alpha=0)
+    ax.grid(axis='y', color='#000814', alpha=0.1)
     ax.tick_params(axis='x', colors='xkcd:off white')
     ax.tick_params(axis='y', colors='xkcd:off white')
     ax.set_xticklabels([])

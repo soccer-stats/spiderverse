@@ -2,13 +2,19 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import math
 from config import DATE_UPDATE
+from config import season_to_min_num_matches
 from template import template_service
 from matplotlib.ticker import FixedFormatter
 from matplotlib.ticker import FixedLocator
 import matplotlib.patheffects as path_effects
 
+season_to_label = {
+    "2021-2022": "2021/22",
+    "2020-2021": "2020/21",
+}
 
-def draw_polar(df, player_name, template):
+
+def draw_polar(df, player_name, template, season):
     csfont = {'fontname': 'DejaVu Sans'}
 
     p_absolute = df[['Player', '90s'] + template_service.get_columns(template)]
@@ -59,12 +65,13 @@ def draw_polar(df, player_name, template):
     ax.xaxis.set_minor_formatter(FixedFormatter(labels))
 
     fig.text(0.5, 0.97, player_name, ha='center', va='top', color='w', size=44, **csfont, fontweight="bold")
-    fig.text(0.5, 0.9, "vs Europe's Top 5 Leagues {}, 2020/21".format(template.upper()),
+    fig.text(0.5, 0.9, "vs Europe's Top 5 Leagues {}, {}".format(template.upper(), season_to_label[season]),
              ha='center', va='top', color='w', size='24', **csfont)
     fig.text(0.5, 0.86, "created by 'Roaming Playmaker' and 'Футбол в цифрах'",
              ha='center', va='top', color='w', size='16', **csfont, alpha=0.8)
     fig.text(0.5, 0.02,
-             'stats per 90, played > 270 mins, data Statsbomb via fbref.com, last update {}'.format(DATE_UPDATE),
+             'stats per 90, played > {} mins, data Statsbomb via fbref.com, last update {}'.format(
+                 season_to_min_num_matches[season] * 90, DATE_UPDATE),
              ha='center', color='#D7D7D7', style='italic', size='15', **csfont)
 
     for i in range(0, len(metrics)):
@@ -76,7 +83,7 @@ def draw_polar(df, player_name, template):
     return fig
 
 
-def draw_polar2(df, player_name, player_name2, template):
+def draw_polar2(df, player_name, player_name2, template, season):
     csfont = {'fontname': 'DejaVu Sans'}
 
     p_absolute = df[['Player', '90s'] + template_service.get_columns(template)]
@@ -136,12 +143,13 @@ def draw_polar2(df, player_name, player_name2, template):
                  bbox=dict(boxstyle="round",alpha=0.8,fc='#000814',hatch='xxx',edgecolor='#ff9f1c',linewidth=2,
                            mutation_aspect=0.5))
 #    s.set_path_effects([path_effects.PathPatchEffect(hatch='xx', edgecolor='#000814', facecolor='w')])
-    fig.text(0.5, 0.89, "vs Europe's Top 5 Leagues {}, 2020/21".format(template.upper()),
+    fig.text(0.5, 0.89, "vs Europe's Top 5 Leagues {}, {}".format(template.upper(), season_to_label[season]),
              ha='center', va='top', color='w', size='24', **csfont)
     fig.text(0.5, 0.85, "created by 'Roaming Playmaker' and 'Футбол в цифрах'",
              ha='center', va='top', color='w', size='16', **csfont, alpha=0.8)
     fig.text(0.5, 0.02,
-             'stats per 90, played > 270 mins, data Statsbomb via fbref.com, last update {}'.format(DATE_UPDATE),
+             'stats per 90, played > {} mins, data Statsbomb via fbref.com, last update {}'.format(
+                 season_to_min_num_matches[season] * 90, DATE_UPDATE),
              ha='center', color='#D7D7D7', style='italic', size='15', **csfont)
     for i in range(0, len(metrics)):
         text = (str(round(((list(values_df.loc[player_name]))[i]), 2)))

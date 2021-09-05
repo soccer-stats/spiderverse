@@ -5,15 +5,40 @@ DATA_PATH = os.path.join(BASE_PATH, "data")
 DATE_UPDATE = "2021-05-25"
 
 template_to_position_mapping = {
-    "Forwards": {"filter": "FW",
-                 "default_player": "Romelu Lukaku",
-                 "default_compare_player": "Karim Benzema"},
-    "Midfielders": {"filter": "MF",
-                    "default_player": "Paul Pogba",
-                    "default_compare_player": "Rodri"},
-    "Defenders": {"filter": "DF",
-                  "default_player": "Trent Alexander-Arnold",
-                  "default_compare_player": "Jordi Alba"},
+    "2021-2022": {
+        "Forwards": {
+            "filter": "FW",
+            "default_player": "Romelu Lukaku | Chelsea",
+            "default_compare_player": "Karim Benzema | Real Madrid"
+        },
+        "Midfielders": {
+            "filter": "MF",
+            "default_player": "Paul Pogba | Manchester Utd",
+            "default_compare_player": "Rodri | Manchester City"
+        },
+        "Defenders": {
+            "filter": "DF",
+            "default_player": "Trent Alexander-Arnold | Liverpool",
+            "default_compare_player": "Jordi Alba | Barcelona"
+        },
+    },
+    "2020-2021": {
+        "Forwards": {
+            "filter": "FW",
+            "default_player": "Lionel Messi | Barcelona",
+            "default_compare_player": "Karim Benzema | Real Madrid"
+        },
+        "Midfielders": {
+            "filter": "MF",
+            "default_player": "Paul Pogba | Manchester Utd",
+            "default_compare_player": "Kevin De Bruyne | Manchester City"
+        },
+        "Defenders": {
+            "filter": "DF",
+            "default_player": "Trent Alexander-Arnold | Liverpool",
+            "default_compare_player": "Jordi Alba | Barcelona"
+        },
+    }
 }
 
 

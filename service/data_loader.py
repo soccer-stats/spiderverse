@@ -15,4 +15,5 @@ def load_data(pos=None, min_matches=3, season="2020-2021"):
         df = df[df['Pos'].str.contains(pos)].copy()
     df = df[df['90s'] >= min_matches]
     df['Player'] = df['Player'].str.split('\\', expand=True)[0]
+    df['Player'] = df['Player'] + " | " + df['Squad']
     return df

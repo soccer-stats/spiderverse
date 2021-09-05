@@ -64,7 +64,7 @@ def draw_polar(df, player_name, template, season):
     labels = template_service.get_labels(template)
     ax.xaxis.set_minor_formatter(FixedFormatter(labels))
 
-    fig.text(0.5, 0.97, player_name, ha='center', va='top', color='w', size=44, **csfont, fontweight="bold")
+    fig.text(0.5, 0.97, player_name.split(" | ")[0], ha='center', va='top', color='w', size=44, **csfont, fontweight="bold")
     fig.text(0.5, 0.9, "vs Europe's Top 5 Leagues {}, {}".format(template.upper(), season_to_label[season]),
              ha='center', va='top', color='w', size='24', **csfont)
     fig.text(0.5, 0.86, "created by 'Roaming Playmaker' and 'Футбол в цифрах'",
@@ -137,11 +137,16 @@ def draw_polar2(df, player_name, player_name2, template, season):
     ax.xaxis.set_minor_formatter(FixedFormatter(labels))
 
     fontsize = 34
-    fig.text(0.25, 0.96, player_name.split(' ')[0][0]+'. '+player_name.split(' ')[-1], ha='center', va='top', color='w', size=fontsize, **csfont, fontweight="bold",
-             bbox=dict(boxstyle="round",alpha=0.8,fc='#000814',mutation_aspect=0.5,edgecolor='#ff9f1c',linewidth=2))
-    s = fig.text(0.75, 0.96, player_name2.split(' ')[0][0]+'. '+player_name2.split(' ')[-1],ha='center', va='top', color='w', size=fontsize, **csfont, fontweight="bold",
-                 bbox=dict(boxstyle="round",alpha=0.8,fc='#000814',hatch='xxx',edgecolor='#ff9f1c',linewidth=2,
-                           mutation_aspect=0.5))
+    fig.text(0.25, 0.96, player_name.split(" | ")[0].split(' ')[0][0] + '. ' +
+             player_name.split(" | ")[0].split(' ')[-1],
+             ha='center', va='top', color='w', size=fontsize, **csfont, fontweight="bold",
+             bbox=dict(boxstyle="round", alpha=0.8, fc='#000814', mutation_aspect=0.5,
+                       edgecolor='#ff9f1c', linewidth=2))
+    s = fig.text(0.75, 0.96, player_name2.split(" | ")[0].split(' ')[0][0]+'. ' +
+                 player_name2.split(" | ")[0].split(' ')[-1], ha='center', va='top', color='w',
+                 size=fontsize, **csfont, fontweight="bold",
+                 bbox=dict(boxstyle="round", alpha=0.8, fc='#000814', hatch='xxx', edgecolor='#ff9f1c',
+                           linewidth=2, mutation_aspect=0.5))
 #    s.set_path_effects([path_effects.PathPatchEffect(hatch='xx', edgecolor='#000814', facecolor='w')])
     fig.text(0.5, 0.89, "vs Europe's Top 5 Leagues {}, {}".format(template.upper(), season_to_label[season]),
              ha='center', va='top', color='w', size='24', **csfont)

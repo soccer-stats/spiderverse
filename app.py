@@ -7,7 +7,9 @@ import config
 
 
 def prepare_and_read_input_params(season_label_name, player_label_name, default_player="default_player"):
-    season = st.sidebar.selectbox(season_label_name, ["2021-2022", "2020-2021"])
+    season = st.sidebar.selectbox(
+        season_label_name,
+        ["2021-2022", "2020-2021", "2019-2020", "2018-2019", "2017-2018"])
     players_df = data_loader.load_data(
         config.template_to_position_mapping[season][template]["filter"],
         min_matches=config.season_to_min_num_matches[season], season=season)

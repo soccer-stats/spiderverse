@@ -38,3 +38,6 @@ with streamlit_analytics.track():
         df = df1 if season1 == season2 else df1.append(df2)
         st.pyplot(polar_plot_service.draw_polar2(
             df, player1_name, player2_name, template, season1, season2))
+
+    st.write("'Pass - xPass competiton %' - difference between ACTUAL and EXPECTED Pass Completion")
+    st.write("Expected Pass Completion calculated based on various passing metrics using linear regression")

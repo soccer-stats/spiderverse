@@ -1,7 +1,7 @@
 import os
 BASE_PATH = os.path.dirname(__file__)
 DATA_PATH = os.path.join(BASE_PATH, "data")
-DATE_UPDATE = "2021-11-02"
+DATE_UPDATE = "2021-11-10"
 
 template_to_position_mapping = {
     "2021-2022": {

@@ -1,7 +1,7 @@
 import os
 BASE_PATH = os.path.dirname(__file__)
 DATA_PATH = os.path.join(BASE_PATH, "data")
-DATE_UPDATE = "2021-12-15"
+DATE_UPDATE = "2021-12-22"
 
 template_to_position_mapping = {
     "2021-2022": {
@@ -97,5 +97,5 @@ season_to_min_num_matches = {
     "2018-2019": 5,
     "2019-2020": 5,
     "2020-2021": 5,
-    "2021-2022": 2  # increase it during the season
+    "2021-2022": 3  # increase it during the season
 }

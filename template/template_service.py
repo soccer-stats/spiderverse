@@ -2,8 +2,8 @@ templates = {
     "Forwards": {
         "metrics": [
             {"label": "Win ball\n(tackle+int)", "colname": "Tkl+Int", "color": "#2ec4b6"},
-            {"label": "Pass - xPass\ncompetiton %", "colname": "diff_pass", "color": "#ff9f1c", "skip_p90": True, "add_sign": True},
-            {"label": "Pass\ncompetiton %", "colname": "Cmp%", "color": "#ff9f1c", "skip_p90": True},
+            {"label": "Pass - xPass\ncompletion %", "colname": "diff_pass", "color": "#ff9f1c", "skip_p90": True, "add_sign": True},
+            {"label": "Pass\ncompletion %", "colname": "Cmp%", "color": "#ff9f1c", "skip_p90": True},
             {"label": "Dribbles\nSucc", "colname": "Succ", "color": "#ff9f1c"},
             {"label": "Penbox\nTouch", "colname": "Att Pen", "color": "#ff9f1c"},
             {"label": "Aerial\nWon", "colname": "Won", "color": "#e71d36"},
@@ -17,8 +17,8 @@ templates = {
         "metrics": [
             {"label": "Win ball\n(tackle+int)", "colname": "Tkl+Int", "color": "#2ec4b6"},
             {"label": "Progressive\n(pass+carries)", "colname": "Prog+", "color": "#ff9f1c"},
-            {"label": "Pass - xPass\ncompetiton %", "colname": "diff_pass", "color": "#ff9f1c", "skip_p90": True, "add_sign": True},
-            {"label": "Pass\ncompetiton %", "colname": "Cmp%", "color": "#ff9f1c", "skip_p90": True},
+            {"label": "Pass - xPass\ncompletion %", "colname": "diff_pass", "color": "#ff9f1c", "skip_p90": True, "add_sign": True},
+            {"label": "Pass\ncompletion %", "colname": "Cmp%", "color": "#ff9f1c", "skip_p90": True},
             {"label": "Dribbles\nSucc", "colname": "Succ", "color": "#ff9f1c"},
             {"label": "xA", "colname": "xA", "color": "#e71d36"},
             {"label": "npxG", "colname": "npxG", "color": "#e71d36"},
@@ -34,8 +34,8 @@ templates = {
             {"label": "Blocked\n(pass+shot)", "colname": "Blocks", "color": "#2ec4b6"},
             {"label": "Aerial\nWon", "colname": "Won", "color": "#2ec4b6"},
             {"label": "Pass\nInto\nFinal third", "colname": "1/3_x", "color": "#ff9f1c"},
-            {"label": "Pass - xPass\ncompetiton %", "colname": "diff_pass", "color": "#ff9f1c", "skip_p90": True, "add_sign": True},
-            {"label": "Pass\ncompetiton %", "colname": "Cmp%", "color": "#ff9f1c", "skip_p90": True},
+            {"label": "Pass - xPass\ncompletion %", "colname": "diff_pass", "color": "#ff9f1c", "skip_p90": True, "add_sign": True},
+            {"label": "Pass\ncompletion %", "colname": "Cmp%", "color": "#ff9f1c", "skip_p90": True},
             {"label": "Progressive\n(pass+carry)", "colname": "Prog+", "color": "#ff9f1c"},
             {"label": "Shot-Creating\nActions", "colname": "SCA", "color": "#e71d36"},
             {"label": "xA", "colname": "xA", "color": "#e71d36"},

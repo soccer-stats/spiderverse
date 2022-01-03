@@ -39,5 +39,5 @@ with streamlit_analytics.track():
         st.pyplot(polar_plot_service.draw_polar2(
             df, player1_name, player2_name, template, season1, season2))
 
-    st.write("'Pass - xPass competiton %' - difference between ACTUAL and EXPECTED Pass Completion")
+    st.write("'Pass - xPass completion %' - difference between ACTUAL and EXPECTED Pass Completion")
     st.write("Expected Pass Completion calculated based on various passing metrics using linear regression")

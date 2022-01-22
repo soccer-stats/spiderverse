@@ -19,7 +19,7 @@ templates = {
             {"label": "Progressive\n(pass+carries)", "colname": "Prog+", "color": "#ff9f1c"},
             {"label": "Pass - xPass\ncompletion %", "colname": "diff_pass", "color": "#ff9f1c", "skip_p90": True, "add_sign": True},
             {"label": "Pass\ncompletion %", "colname": "Cmp%", "color": "#ff9f1c", "skip_p90": True},
-            {"label": "Dribbles\nWon\nin duels", "colname": "Succ", "color": "#ff9f1c"},
+            {"label": "Dribbles\nWon\nin duel", "colname": "Succ", "color": "#ff9f1c"},
             {"label": "xA", "colname": "xA", "color": "#e71d36"},
             {"label": "npxG", "colname": "npxG", "color": "#e71d36"},
             {"label": "Shot-Creating\nActions", "colname": "SCA", "color": "#e71d36"},

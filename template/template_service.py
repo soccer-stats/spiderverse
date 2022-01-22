@@ -29,7 +29,7 @@ templates = {
     },
     "Defenders": {
         "metrics": [
-            {"label": "Tackles\nWon", "colname": "TklW", "color": "#2ec4b6"},
+            {"label": "Tackles\nWon\nin duels", "colname": "TklW", "color": "#2ec4b6"},
             {"label": "Interception", "colname": "Int", "color": "#2ec4b6"},
             {"label": "Blocked\n(pass+shot)", "colname": "Blocks", "color": "#2ec4b6"},
             {"label": "Aerial\nWon", "colname": "Won", "color": "#2ec4b6"},

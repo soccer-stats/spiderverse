@@ -3,3 +3,4 @@ numpy~=1.20.1
 pandas~=1.2.3
 matplotlib~=3.4.1
 streamlit_analytics~=0.2.2
+fitter~=1.4.0

@@ -6,6 +6,7 @@ from config import season_to_min_num_matches
 from template import template_service
 from matplotlib.ticker import FixedFormatter
 from matplotlib.ticker import FixedLocator
+from fitter import Fitter
 import matplotlib.patheffects as path_effects
 
 season_to_label = {
@@ -33,17 +34,22 @@ def draw_polar(df, player_name, template, season):
             values_df[metric['label']] = (p_absolute[metric['colname']] / p_absolute['90s'])
     values_df = values_df.set_index("Player")
 
-    percentiles_df = pd.DataFrame()
-    percentiles_df['Player'] = p_absolute['Player']
+    ranked_df = pd.DataFrame()
+    ranked_df['Player'] = p_absolute['Player']
     for metric in metrics:
-        if "skip_p90" in metric and metric['skip_p90']:
-            percentiles_df[metric['label']] = (p_absolute[metric['colname']]).rank(pct=True) * 100
+        if metric["rank_type"] == "percentile":
+            if "skip_p90" in metric and metric['skip_p90']:
+                ranked_df[metric['label']] = (p_absolute[metric['colname']]).rank(pct=True) * 100
+            else:
+                ranked_df[metric['label']] = (p_absolute[metric['colname']] / p_absolute['90s']).rank(pct=True) * 100
+        elif metric["rank_type"] == "beta":
+            calculate_beta_rank(df, metric, ranked_df)
         else:
-            percentiles_df[metric['label']] = (p_absolute[metric['colname']] / p_absolute['90s']).rank(pct=True) * 100
-    percentiles_df = percentiles_df.set_index('Player')
+            raise Exception("Unsupported rank_type '{}'".format(metric["rank_type"]))
+    ranked_df = ranked_df.set_index('Player')
 
     theta = list(map((lambda x: x * math.pi / len(metrics)), list(range(1, 2 * len(metrics) + 1, 2))))
-    radii = list(percentiles_df.loc[player_name])
+    radii = list(ranked_df.loc[player_name])
     width = [math.pi / (len(metrics) / 2)] * len(radii)
     fig = plt.figure(figsize=(10, 10), facecolor='#000814')
     ax = fig.add_subplot(111, projection='polar')
@@ -102,19 +108,24 @@ def draw_polar2(df, player_name1, player_name2, template, season1, season2):
             values_df[metric['label']] = (p_absolute[metric['colname']] / p_absolute['90s'])
     values_df = values_df.set_index(["Player", "season"])
 
-    percentiles_df = pd.DataFrame()
-    percentiles_df['Player'] = p_absolute['Player']
-    percentiles_df['season'] = p_absolute['season']
+    ranked_df = pd.DataFrame()
+    ranked_df['Player'] = p_absolute['Player']
+    ranked_df['season'] = p_absolute['season']
     for metric in metrics:
-        if "skip_p90" in metric and metric['skip_p90']:
-            percentiles_df[metric['label']] = (p_absolute[metric['colname']]).rank(pct=True) * 100
+        if metric["rank_type"] == "percentile":
+            if "skip_p90" in metric and metric['skip_p90']:
+                ranked_df[metric['label']] = (p_absolute[metric['colname']]).rank(pct=True) * 100
+            else:
+                ranked_df[metric['label']] = (p_absolute[metric['colname']] / p_absolute['90s']).rank(pct=True) * 100
+        elif metric["rank_type"] == "beta":
+            calculate_beta_rank(df, metric, ranked_df)
         else:
-            percentiles_df[metric['label']] = (p_absolute[metric['colname']] / p_absolute['90s']).rank(pct=True) * 100
-    percentiles_df = percentiles_df.set_index(["Player", "season"])
+            raise Exception("Unsupported rank_type '{}'".format(metric["rank_type"]))
+    ranked_df = ranked_df.set_index(["Player", "season"])
 
     theta = list(map((lambda x: x * math.pi / len(metrics)), list(range(1, 2 * len(metrics) + 1, 2))))
-    radii1 = percentiles_df.loc[player_name1, season1].values.tolist()
-    radii2 = percentiles_df.loc[player_name2, season2].values.tolist()
+    radii1 = ranked_df.loc[player_name1, season1].values.tolist()
+    radii2 = ranked_df.loc[player_name2, season2].values.tolist()
     width = [math.pi / (len(metrics) / 2)] * len(radii1)
     width2 = [math.pi / (len(metrics) / 2)] * len(radii2)
     fig = plt.figure(figsize=(10, 11), facecolor='#000814')
@@ -189,6 +200,19 @@ def draw_polar2(df, player_name1, player_name2, template, season1, season2):
 
     fig.tight_layout(rect=[0, 0.08, 1, 0.77])
     return fig
+
+
+def calculate_beta_rank(df, metric, ranked_df):
+    f = Fitter(df[metric['colname']].values, distributions=["beta"])
+    f.fit()
+    df[metric['colname'] + '_alfa'] = f.fitted_param["beta"][0]
+    df[metric['colname'] + '_beta'] = f.fitted_param["beta"][1]
+    df[metric['colname'] + '_beta_rank'] = (df[metric['colname'] + '_alfa'] +
+                                            df[metric['colname']]) / \
+                                           (df[metric['colname'] + '_alfa'] +
+                                            df[metric['colname'] + '_beta'] +
+                                            df[metric['att_colname']])
+    ranked_df[metric['label']] = (df[metric['colname'] + '_beta_rank']).rank(pct=True) * 100
 
 
 def build_title_from_player_name_and_season(player_name_with_squad, season):

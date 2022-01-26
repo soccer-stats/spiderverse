@@ -203,16 +203,15 @@ def draw_polar2(df, player_name1, player_name2, template, season1, season2):
 
 
 def calculate_beta_rank(df, metric, ranked_df):
-    f = Fitter(df[metric['colname']].values, distributions=["beta"])
-    f.fit()
-    df[metric['colname'] + '_alfa'] = f.fitted_param["beta"][0]
-    df[metric['colname'] + '_beta'] = f.fitted_param["beta"][1]
-    df[metric['colname'] + '_beta_rank'] = (df[metric['colname'] + '_alfa'] +
-                                            df[metric['colname']]) / \
-                                           (df[metric['colname'] + '_alfa'] +
-                                            df[metric['colname'] + '_beta'] +
-                                            df[metric['att_colname']])
-    ranked_df[metric['label']] = (df[metric['colname'] + '_beta_rank']).rank(pct=True) * 100
+    # m - the number of attempts made by the 80th percentile player
+    # IMDb uses constant "minimum votes required to be listed in the Top 250 (currently 25,000)"
+    # we cannot use a constant as it varies from metric to metric
+    m = df[metric['att_colname']].quantile(0.80)
+    C = df[metric['colname']].mean()
+    v = df[metric['att_colname']]
+    R = df[metric['colname']]
+    df[metric['colname'] + '_bayes_rank'] = (R * v + C * m) / (v + m)
+    ranked_df[metric['label']] = (df[metric['colname'] + '_bayes_rank']).rank(pct=True) * 100
 
 
 def build_title_from_player_name_and_season(player_name_with_squad, season):

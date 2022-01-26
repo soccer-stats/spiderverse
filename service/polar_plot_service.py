@@ -8,7 +8,7 @@ from matplotlib.ticker import FixedFormatter
 from matplotlib.ticker import FixedLocator
 from fitter import Fitter
 import matplotlib.patheffects as path_effects
-
+import numpy as np
 season_to_label = {
     "2021-2022": "2021/22",
     "2020-2021": "2020/21",
@@ -206,12 +206,16 @@ def calculate_beta_rank(df, metric, ranked_df):
     # m - the number of attempts made by the 80th percentile player
     # IMDb uses constant "minimum votes required to be listed in the Top 250 (currently 25,000)"
     # we cannot use a constant as it varies from metric to metric
-    m = df[metric['att_colname']].quantile(0.80)
+    Params = df[metric['colname']].values
+    f = Fitter(Params, distributions=["beta"])
+    f.fit()
+    m = f.fitted_param["beta"][1]
     C = df[metric['colname']].mean()
     v = df[metric['att_colname']]
     R = df[metric['colname']]
     df[metric['colname'] + '_bayes_rank'] = (R * v + C * m) / (v + m)
     ranked_df[metric['label']] = (df[metric['colname'] + '_bayes_rank']).rank(pct=True) * 100
+    ranked_df[metric['label']] = np.where(df[metric['colname']] == 0,0,ranked_df[metric['label']])
 
 
 def build_title_from_player_name_and_season(player_name_with_squad, season):

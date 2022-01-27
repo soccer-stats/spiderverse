@@ -41,3 +41,4 @@ with streamlit_analytics.track():
 
     st.write("'Pass - xPass completion %' - difference between ACTUAL and EXPECTED Pass Completion")
     st.write("Expected Pass Completion calculated based on various passing metrics using linear regression")
+    st.write("The height of the dueling sectors is calculated using Bayesian estimator, which builds on successful actions throughout the season")

@@ -229,3 +229,5 @@ def calculate_period(season1, season2):
     season2_from = int(season2.split("-")[0])
     season2_to = int(season2.split("-")[1])
     return "{}-{}".format(min(season1_from, season2_from), max(season1_to, season2_to))
+
+

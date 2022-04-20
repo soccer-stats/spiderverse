@@ -97,5 +97,5 @@ season_to_min_num_matches = {
     "2018-2019": 5,
     "2019-2020": 5,
     "2020-2021": 5,
-    "2021-2022": 3  # increase it during the season
+    "2021-2022": 4  # increase it during the season
 }
